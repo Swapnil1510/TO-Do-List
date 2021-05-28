@@ -13,17 +13,17 @@
 </head>
 
 </head>
-<body>
+<body style="background-color: #98AFC7">
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<div class="container">
 
 	<h2>User Register Form</h2>
-	<div class="col-md-6 col-md-offset-3">
+	<div class="col-md-6 col-md-offset-3" style="background-color: #98AFC7">
 			<div class="alert alert-success center" role="alert">
 				<p>${NOTIFICATION}</p>
 			</div>
 			
-				<form action="<%=request.getContextPath()%>/register" method="post">
+				<form action="<%=request.getContextPath()%>/register" method="post" style="background-color: #98AFC7">
 
 					<div class="form-group">
 						<label for="uname">First Name:</label> <input type="text"

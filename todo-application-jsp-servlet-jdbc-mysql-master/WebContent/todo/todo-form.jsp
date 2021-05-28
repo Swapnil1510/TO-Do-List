@@ -13,10 +13,10 @@
 </head>
 
 </head>
-<body>
+<body style="background-color: #98AFC7">
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark"
-			style="background-color: tomato">
+			style="background-color: teal">
 			<div>
 				<a href="https://www.javaguides.net" class="navbar-brand"> Todo
 					App</a>
@@ -33,14 +33,13 @@
 			</ul>
 		</nav>
 	</header>
-	<div class="container col-md-5">
-		<div class="card">
-			<div class="card-body">
+	<div class="container col-md-5" style="background-color: #98AFC7">
+			<div class="card-body" style="box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2)">
 				<c:if test="${todo != null}">
-					<form action="update" method="post">
+					<form action="update" method="post" style="background-color: #98AFC7">
 				</c:if>
 				<c:if test="${todo == null}">
-					<form action="insert" method="post">
+					<form action="insert" method="post" style="background-color: #98AFC7">
 				</c:if>
 
 				<caption>
