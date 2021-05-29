@@ -48,6 +48,8 @@ public class UserController extends HttpServlet {
 			int result = userDao.registerEmployee(employee);
 			if (result == 1) {
 				request.setAttribute("NOTIFICATION", "User Registered Successfully!");
+			}else {
+				request.setAttribute("NOTIFICATION", "username already exists!");
 			}
 
 		} catch (Exception e) {
