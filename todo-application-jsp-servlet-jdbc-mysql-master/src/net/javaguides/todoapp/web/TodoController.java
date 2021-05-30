@@ -97,7 +97,6 @@ public class TodoController extends HttpServlet {
 	private void insertTodo(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 
 		String title = request.getParameter("title");
-		String username = request.getParameter("username");
 		String description = request.getParameter("description");
 
 		/*
@@ -106,7 +105,7 @@ public class TodoController extends HttpServlet {
 		 */
 
 		boolean isDone = Boolean.valueOf(request.getParameter("isDone"));
-		Todo newTodo = new Todo(title, username, description, LocalDate.now(), isDone);
+		Todo newTodo = new Todo(title, description, LocalDate.now(), isDone);
 		todoDAO.insertTodo(newTodo);
 		response.sendRedirect("list");
 	}
@@ -115,13 +114,12 @@ public class TodoController extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		String title = request.getParameter("title");
-		String username = request.getParameter("username");
 		String description = request.getParameter("description");
 		// DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-mm-dd");
 		LocalDate targetDate = LocalDate.parse(request.getParameter("targetDate"));
 
 		boolean isDone = Boolean.valueOf(request.getParameter("isDone"));
-		Todo updateTodo = new Todo(id, title, username, description, targetDate, isDone);
+		Todo updateTodo = new Todo(id, title, description, targetDate, isDone);
 
 		todoDAO.updateTodo(updateTodo);
 

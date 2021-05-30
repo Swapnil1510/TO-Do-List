@@ -21,12 +21,12 @@ import net.javaguides.todoapp.utils.JDBCUtils;
 public class TodoDaoImpl implements TodoDao {
 
 	private static final String INSERT_TODOS_SQL = "INSERT INTO todos"
-			+ "  (title, username, description, target_date,  is_done) VALUES " + " (?, ?, ?, ?, ?);";
+			+ "  (title, description, target_date,  is_done) VALUES " + " (?, ?, ?, ?);";
 
-	private static final String SELECT_TODO_BY_ID = "select id,title,username,description,target_date,is_done from todos where id =?";
+	private static final String SELECT_TODO_BY_ID = "select id,title,description,target_date,is_done from todos where id =?";
 	private static final String SELECT_ALL_TODOS = "select * from todos";
 	private static final String DELETE_TODO_BY_ID = "delete from todos where id = ?;";
-	private static final String UPDATE_TODO = "update todos set title = ?, username= ?, description =?, target_date =?, is_done = ? where id = ?;";
+	private static final String UPDATE_TODO = "update todos set title = ?, description =?, target_date =?, is_done = ? where id = ?;";
 
 	public TodoDaoImpl() {
 	}
@@ -38,10 +38,9 @@ public class TodoDaoImpl implements TodoDao {
 		try (Connection connection = JDBCUtils.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TODOS_SQL)) {
 			preparedStatement.setString(1, todo.getTitle());
-			preparedStatement.setString(2, todo.getUsername());
-			preparedStatement.setString(3, todo.getDescription());
-			preparedStatement.setDate(4, JDBCUtils.getSQLDate(todo.getTargetDate()));
-			preparedStatement.setBoolean(5, todo.getStatus());
+			preparedStatement.setString(2, todo.getDescription());
+			preparedStatement.setDate(3, JDBCUtils.getSQLDate(todo.getTargetDate()));
+			preparedStatement.setBoolean(4, todo.getStatus());
 			System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
 		} catch (SQLException exception) {
@@ -65,11 +64,10 @@ public class TodoDaoImpl implements TodoDao {
 			while (rs.next()) {
 				long id = rs.getLong("id");
 				String title = rs.getString("title");
-				String username = rs.getString("username");
 				String description = rs.getString("description");
 				LocalDate targetDate = rs.getDate("target_date").toLocalDate();
 				boolean isDone = rs.getBoolean("is_done");
-				todo = new Todo(id, title, username, description, targetDate, isDone);
+				todo = new Todo(id, title, description, targetDate, isDone);
 			}
 		} catch (SQLException exception) {
 			JDBCUtils.printSQLException(exception);
@@ -96,11 +94,10 @@ public class TodoDaoImpl implements TodoDao {
 			while (rs.next()) {
 				long id = rs.getLong("id");
 				String title = rs.getString("title");
-				String username = rs.getString("username");
 				String description = rs.getString("description");
 				LocalDate targetDate = rs.getDate("target_date").toLocalDate();
 				boolean isDone = rs.getBoolean("is_done");
-				todos.add(new Todo(id, title, username, description, targetDate, isDone));
+				todos.add(new Todo(id, title, description, targetDate, isDone));
 			}
 		} catch (SQLException exception) {
 			JDBCUtils.printSQLException(exception);
@@ -125,10 +122,9 @@ public class TodoDaoImpl implements TodoDao {
 		try (Connection connection = JDBCUtils.getConnection();
 				PreparedStatement statement = connection.prepareStatement(UPDATE_TODO);) {
 			statement.setString(1, todo.getTitle());
-			statement.setString(2, todo.getUsername());
-			statement.setString(3, todo.getDescription());
-			statement.setDate(4, JDBCUtils.getSQLDate(todo.getTargetDate()));
-			statement.setBoolean(5, todo.getStatus());
+			statement.setString(2, todo.getDescription());
+			statement.setDate(3, JDBCUtils.getSQLDate(todo.getTargetDate()));
+			statement.setBoolean(4, todo.getStatus());
 			statement.setLong(6, todo.getId());
 			rowUpdated = statement.executeUpdate() > 0;
 		}
